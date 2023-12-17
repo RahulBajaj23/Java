@@ -32,7 +32,6 @@ class Triangle extends Shape {
 
 public class Main1 {
     public static void main(String[] args) {
-        // Shape1 obj1 = new Shape1(); // Error: Can't create object directly for abstract classes
 
         Square objSquare = new Square();
         objSquare.draw1();
