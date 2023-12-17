@@ -30,7 +30,7 @@ class Triangle extends Shape {
     }
 }
 
-public class Main1 {
+public class abstract_class {
     public static void main(String[] args) {
 
         Square objSquare = new Square();
