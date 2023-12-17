@@ -84,7 +84,7 @@ class Course {
     }
 }
 
-public class main {
+public class SchoolSystem_project {
     public static void main(String[] args) {
         // Example usage
 
