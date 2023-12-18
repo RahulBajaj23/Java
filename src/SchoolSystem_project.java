@@ -1,115 +1,123 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
- class Student {
+class Student {
     String firstName;
     String lastName;
     int registration;
     int grade;
     int year;
 
-    // Constructors
-    public Student(String firstName, String lastName, int registration, int grade, int year) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.registration = registration;
-        this.grade = grade;
-        this.year = year;
+    public Student( String firstName, String lastName, int registration, int grade, int year){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.registration=registration;
+        this.grade=grade;
+        this.year=year;
     }
-
-    public Student(String firstName, String lastName, int registration) {
-        this(firstName, lastName, registration, 0, 1);
+    public Student(String firstName,String lastName,int year){
+        this(firstName,lastName,0,0,1);
     }
-
-    public Student(String firstName, String lastName) {
-        this(firstName, lastName, 0, 0, 1);
+    public  Student(String firstName,String lastName){
+        this(firstName,lastName,0,0,1);
     }
+     public void printFullName(){
+         //TODO implement
+         System.out.println(firstName+" "+ lastName);
+     }
 
-    // Methods
-    public void printFullName() {
-        System.out.println(firstName + " " + lastName);
-    }
+     public boolean isApproved(){
+         //TODO implement: should return true if grade >= 60
+         return grade>=60;
 
-    public boolean isApproved() {
-        return grade >= 60;
-    }
+     }
 
-    public int changeYearIfApproved() {
-        if (isApproved()) {
+     public int changeYearIfApproved(){
+        if(isApproved()){
             year++;
-            System.out.println("Congratulations!");
+            System.out.println("Congragulations");
         }
-        return year;
-    }
+         //TODO implement: the student should advance to the next year if he/she grade is >= 60
+         // Make year = year + 1, and print "Congragulations" if the student has been approved
+         return year;
+     }
 }
 
-class Course {
+class Course{
     String courseName;
-    String professorName;
+    String ProfessorName;
     int year;
-    List<Student> enrolledStudents;
+    static List<Student> enrolledStudents;
 
-    // Constructor
     public Course(String courseName, String professorName, int year) {
         this.courseName = courseName;
-        this.professorName = professorName;
+        this.ProfessorName = professorName;
         this.year = year;
-        this.enrolledStudents = new ArrayList<>();
+        enrolledStudents = new ArrayList<>();
     }
 
-    // Methods
     public void enroll(Student student) {
-        enrolledStudents.add(student);
+        if (!enrolledStudents.contains(student)) {
+            enrolledStudents.add(student);
+        } else {
+            System.out.println(student.firstName + " " + student.lastName + " is already enrolled.");
+        }
+    }
+    public void unEnroll(Student student){
+        //TODO remove this student from the collection
+        // Hint: check if that really is this student
+        enrolledStudents.removeIf(s->s.registration==student.registration);
     }
 
-    public void enroll(List<Student> students) {
-        enrolledStudents.addAll(students);
-    }
-
-    public void unEnroll(Student student) {
-        enrolledStudents.removeIf(s -> s.registration == student.registration);
-    }
-
-    public int countStudents() {
+    public  int countStudents(){
+        //TODO implement
         return enrolledStudents.size();
     }
 
-    public int bestGrade() {
-        int maxGrade = 0;
-        for (Student student : enrolledStudents) {
+    public  int bestGrade(){
+        //TODO implement
+        int maxGrade=0;
+        for(Student student:enrolledStudents) {
             maxGrade = Math.max(maxGrade, student.grade);
         }
-        return maxGrade;
-    }
-}
+            return maxGrade;
 
+    }
+    public void enroll(Student[] students) {
+        for (Student student : students) {
+            enroll(student);
+        }
+    }
+
+}
 public class SchoolSystem_project {
     public static void main(String[] args) {
-        // Example usage
+        Student s1 = new Student("Rahul", "Kumar", 10, 75, 1);
+        Student s2 = new Student("Soumya", "Sharma", 11, 85, 1);
+        Student s3 = new Student("Rajat", "yadav", 12, 90, 1);
 
-        // Create students
-        Student student1 = new Student("John", "Doe", 1, 70, 1);
-        Student student2 = new Student("Jane", "Smith", 2, 85, 1);
-        Student student3 = new Student("Bob", "Johnson", 3, 55, 1);
+        Course c1 = new Course("java", "prof.Anamaliah", 2023);
 
-        // Create course
-        Course course = new Course("Java Programming", "Prof. Johnson", 2023);
+        c1.enroll(s1);
+        c1.enroll(s2);
 
-        // Enroll individual students
-        course.enroll(student1);
-        course.enroll(student2);
+        System.out.println("Number of students: " + c1.countStudents());
+        System.out.println("Best grade: " + c1.bestGrade());
 
-        // Print student count and best grade
-        System.out.println("Number of students: " + course.countStudents());
-        System.out.println("Best grade in the course: " + course.bestGrade());
+        Student[] studentArray = { s1, s3 };
+        c1.enroll(studentArray);
 
-        // Enroll a list of students
-        List<Student> studentList = Arrays.asList(student2, student3);
-        course.enroll(studentList);
+        // Enroll students from studentArray if not already enrolled
+//        for (Student student : studentArray) {
+//            if (!Course.enrolledStudents.contains(student)) {
+//                c1.enroll(student);
+//            }
+//        }
 
-        // Print updated student count and best grade
-        System.out.println("Number of students after enrolling a list: " + course.countStudents());
-        System.out.println("Best grade in the course after enrolling a list: " + course.bestGrade());
+        System.out.println("Number of students after enroll of studentArray: " + c1.countStudents());
+        System.out.println("Best grade after enroll of studentArray: " +c1.bestGrade());
     }
 }
+
+
