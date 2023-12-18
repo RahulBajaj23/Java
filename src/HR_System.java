@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-class Employee{
+class Employee {
     String firstName;
     String lastName;
     int registration;
@@ -11,32 +11,34 @@ class Employee{
     double salary;
     int yearsWorked;
 
-    public Employee(String firstName,String lastName,int registration,int age,int daysWorked,int vaccationDaysTaken,double salary,int yearsWorked){
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.registration=registration;
-        this.age=age;
-        this.daysWorked=daysWorked;
-        this.vaccationDaysTaken=vaccationDaysTaken;
-        this.salary=salary;
-        this.yearsWorked=yearsWorked;
+    public Employee(String firstName, String lastName, int registration, int age, int daysWorked, int vaccationDaysTaken, double salary, int yearsWorked) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.registration = registration;
+        this.age = age;
+        this.daysWorked = daysWorked;
+        this.vaccationDaysTaken = vaccationDaysTaken;
+        this.salary = salary;
+        this.yearsWorked = yearsWorked;
     }
-    public int timeToRetirement(){
+
+    public int timeToRetirement() {
         // time to retirement = min(60 - age, 40 - yearsWorked)
-        return Math.min(60-age,40-yearsWorked);
+        return Math.min(60 - age, 40 - yearsWorked);
     }
 
-    public int vacationTimeLeft(){
+    public int vacationTimeLeft() {
         // vacation time left = (daysWorked/360)*(30 - vacationDaysTaken)
-        return (int) ((daysWorked/360.0)*(30-vaccationDaysTaken));
+        return (int) ((daysWorked / 360.0) * (30 - vaccationDaysTaken));
 
     }
 
-    public int calculateBonus(){
+    public int calculateBonus() {
         // bonus = 2.2*salary
-        return (int) (2.2*salary);
+        return (int) (2.2 * salary);
     }
 }
+
 class salesRep extends Employee{
     double salesMade;
 
@@ -49,7 +51,6 @@ class salesRep extends Employee{
         return (int) (0.1*salesMade);
     }
 }
-
 class SalesManager extends salesRep {
     HashMap<Integer, salesRep> team;
 
@@ -63,9 +64,6 @@ class SalesManager extends salesRep {
         return (int) (0.03 * totalSales);
     }
 }
-
-
-
 public class HR_System {
     public static void main(String[] args) {
         salesRep rep1 = new salesRep("John", "Doe", 101, 35, 300, 5, 60000, 8, 50);
@@ -81,7 +79,7 @@ public class HR_System {
         System.out.println("Time to retirement for salesmanager: " + manager.timeToRetirement());
         System.out.println("Vacation time left for rep: " + rep1.vacationTimeLeft());
         System.out.println("Bonus for rep2: " + rep2.calculateBonus());
-        System.out.println("Commission for manager's team: " + manager.calculateCommission());
+        System.out.println("Commission for manager: " + manager.calculateCommission());
+        System.out.println("Commission for salesrep'rap " +rep1.calculateComission());
     }
 }
-
